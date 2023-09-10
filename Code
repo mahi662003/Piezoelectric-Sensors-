@@ -1,0 +1,22 @@
+#include <LiquidCrystal_I2C.h>
+#define PIEZO A0
+
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+
+void setup()  {
+   pinMode (PIEZO, INPUT);
+   lcd.init(); // initialize the lcd
+   lcd.backlight();
+}
+
+void loop() {
+   int sensorValue = analogRead(PIEZO);
+   float voltage = sensorValue * (5.0 / 1023.0);
+
+   lcd.clear();                    //clear display
+   lcd.setCursor(3,0);             //move cursor to (3,0) 
+   lcd.print("Voltage is");        //print message at (3,0)
+   lcd.setCursor(0,1);             //move curssor to (0,1) 
+   lcd.print(voltage);             //print message at (0,1)
+   delay(500);                     //display the aove for 500ms
+}
